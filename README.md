@@ -36,4 +36,5 @@ Avaliar como a distância percorrida pelo carro influencia seu preço e verifica
 - Aplicação de logaritmo no preço (`log(price)`) para reduzir heterocedasticidade
 - Alteração da distância percorrida para cada 1000 milhas (`mileage_1000`) para facilitar a interpretação
 
-## A explcicação de cada passo e as conclusões estão presentes no script deste trabalho.
+## A explicação de cada passo e as conclusões estão presentes no script deste trabalho.
+
