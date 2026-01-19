@@ -1,70 +1,71 @@
 ## Analisando a venda de carros usados da BMW
 
-#Primeiro indicar o diretÛrio e ler o arquivo .csv
+#Primeiro indicar o diret√≥rio e ler o arquivo .csv
 
-setwd("C:/Users/Caio Henrique Macedo/Documents/r-bmw-usedcars/dados")
+setwd("../dados")
 dados = read.csv("bmw.csv")
 
-#Temos um banco de dados com 10781 observaÁıes e 9 vari·veis
+#Temos um banco de dados com 10781 observa√ß√µes e 9 vari√°veis
 
 head(dados) #visualizando uma amostra de dados.
 
-#A ideia central do estudo È entender o quanto a dist‚ncia percorrida em milhas
-#(mileage) pelo carro interfere no preÁo dele.
+#A ideia central do estudo √© entender o quanto a dist√¢ncia percorrida em milhas
+#(mileage) pelo carro interfere no pre√ßo dele.
 
-#Podemos comeÁar criando um gr·fico de dispers„o para buscarmos alguma correlaÁ„o.
+#Podemos come√ßar criando um gr√°fico de dispers√£o para buscarmos alguma correla√ß√£o.
 
 plot(dados$mileage, dados$price,
-     main = "Gr·fico de dispers„o",
-     xlab = "dist‚ncia percorrida",
-     ylab = "preÁo")
+     main = "Gr√°fico de dispers√£o",
+     xlab = "dist√¢ncia percorrida",
+     ylab = "pre√ßo")
 
 
-#Em relaÁ„o ‡s milhas, quero interpretar a partir de cada 1000 milhas para melhor
-#visualiÁ„o dos resultados. Para isso vou transformar os valores:
+#Em rela√ß√£o √†s milhas, quero interpretar a partir de cada 1000 milhas para melhor
+#visuali√ß√£o dos resultados. Para isso vou transformar os valores:
 
 dados$mileage_1000 <- dados$mileage / 1000
 
-#Estimaremos agora nosso modelo de regress„o linear atravÈs da funÁ„o lm:
+#Estimaremos agora nosso modelo de regress√£o linear atrav√©s da fun√ß√£o lm:
 
 mod = lm(log(price) ~ mileage_1000, data = dados)
 summary(mod)
 
 #Segundo o modelo estimado, aumento de cada 1000 milhas rodada no carro, ocasiona
-#um decrÈscimo do preÁo do carro de, em mÈdia, 0,014%, 
-#mantendo as demais vari·veis constantes
+#um decr√©scimo do pre√ßo do carro de, em m√©dia, 0,014%, 
+#mantendo as demais vari√°veis constantes
 
-#O coeficiente associado ‡ vari·vel "mileage" È estatisticamente significativo,
-#ao nÌvel de 5%, rejeitando a hipÛtese nula de que seu efeito sobre o preÁo seja nulo.
+#O coeficiente associado √† vari√°vel "mileage" √© estatisticamente significativo,
+#ao n√≠vel de 5%, rejeitando a hip√≥tese nula de que seu efeito sobre o pre√ßo seja nulo.
 
-#Chegamos a um R quadrado de aproximadamento 0,54, o que representa que a dist‚ncia
+#Chegamos a um R quadrado de aproximadamento 0,54, o que representa que a dist√¢ncia
 #percorrida do carro em milhas em nosso estudo
-#explica aproximadamento 54% da variaÁ„o do preÁo dos carros usados.
+#explica aproximadamento 54% da varia√ß√£o do pre√ßo dos carros usados.
 
-#criar um segundo modelo com regress„o m˙ltipla para buscar um R quadrado maior:
+#criar um segundo modelo com regress√£o m√∫ltipla para buscar um R quadrado maior:
 
 
 mod2 = lm(log(price) ~ mileage_1000 + year + engineSize + mpg, data = dados)
 summary(mod2)
 
-#Segundo o modelo 2 estimado chegamos ‡s seguintes conclusıes: 
+#Segundo o modelo 2 estimado chegamos √†s seguintes conclus√µes: 
 
 #1. o aumento de cada 1000 milhas rodadas no carro, ocasiona
-#um decrÈscimo do preÁo do carro de, em mÈdia, 0,006%, 
-#mantendo as demais vari·veis constantes
+#um decr√©scimo do pre√ßo do carro de, em m√©dia, 0,006%, 
+#mantendo as demais vari√°veis constantes
 
-#2. O aumento de 1 ano (year) no carro, aumenta em mÈdia, 0,1% no valor do carro,
-#mantendo as demais vari·veis constantes.
+#2. O aumento de 1 ano (year) no carro, aumenta em m√©dia, 0,1% no valor do carro,
+#mantendo as demais vari√°veis constantes.
 
-#3. O aumento de 1 litro do tamanho do motor (engineSize), o preÁo aumenta, em
-#mÈdia 0,39% o valor do carro, mantendo as demais vari·veis constantes.
+#3. O aumento de 1 litro do tamanho do motor (engineSize), o pre√ßo aumenta, em
+#m√©dia 0,39% o valor do carro, mantendo as demais vari√°veis constantes.
 
-#4. O aumento de 1 mpg na eficiÍncia do carro, h· um aumento de, em mÈdia,
+#4. O aumento de 1 mpg na efici√™ncia do carro, h√° um aumento de, em m√©dia,
 #0,0012% no valor do carro
 
-#Os coeficientes associados ‡s vari·veis s„o estatisticamente significativos,
-#ao nÌvel de 5%, rejeitando a hipÛtese nula de que seus efeitos sobre o preÁo 
+#Os coeficientes associados √†s vari√°veis s√£o estatisticamente significativos,
+#ao n√≠vel de 5%, rejeitando a hip√≥tese nula de que seus efeitos sobre o pre√ßo 
 #sejam nulos.
 
-#AlcanÁamos um R quadrado maior, o que nos mostra que nossas vari·veis explicam
-#cerca de 81% da variaÁ„o dos preÁos de carros usados em nosso estudo.
+#Alcan√ßamos um R quadrado maior, o que nos mostra que nossas vari√°veis explicam
+
+#cerca de 81% da varia√ß√£o dos pre√ßos de carros usados em nosso estudo.
